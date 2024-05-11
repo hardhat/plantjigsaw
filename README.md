@@ -1,2 +1,72 @@
 # plantjigsaw
 A web based game for learning about plant growth via jigsaw puzzle pieces
+
+A mad biologist is attempting to take over Camp Samac and only you can help by solving the plant puzzles finding the clues and bringing her to justice.
+
+In an excape room, this will look something like: 
+- matching growth formulas to familiar plants in the Laboratory Reception Area. Here's an explanation of how to implement it:
+1. Prepare the materials: Create a set of cards or panels with growth formulas written on them, representing different plants. You can design the cards to resemble plant tags or use digital displays if preferred. Also, have a set of plant images or illustrations corresponding to each growth formula.
+2. Set up the puzzle: Display the growth formula cards or panels on a wall or designated area in the room. Place the plant images or illustrations nearby, either in a separate pile or scattered around the room.
+3. Provide instructions: Explain to the players that they need to match the growth formulas with the correct plant images or illustrations. Emphasize that each formula corresponds to a specific plant, and they need to make the correct associations.
+4. Solve the puzzle: Players must analyze each growth formula card and carefully examine the plant images or illustrations to find the correct matches. They should consider the requirements mentioned in the growth formulas, such as sunlight, soil type, watering, and fertilizers. Encourage players to collaborate and discuss their observations to reach consensus.
+5. Complete the puzzle: Once players have correctly matched all the growth formulas with the corresponding plant images or illustrations, they can proceed to the next step. This could involve unlocking a compartment, revealing a hidden clue, or accessing a new area within the escape room.
+
+We will be creating a virtual jigsaw puzzle that implements the above.  Here is the content for each puzzle (to be regularized):
+
+- Tomato (Solanum lycopersicum): Growth Formula: Sunshine + Proper Soil + Adequate Watering + Nutrient-rich Fertilizer = Thriving Tomato Plants
+Sunflower (Helianthus annuus): Growth Formula: Sunlight + Well-drained Soil + Regular Watering + Balanced Fertilizer = Tall Sunflower Stalks and Vibrant Flower Heads
+- Maple Tree (Acer species): Growth Formula: Sunlight (Some Varieties Tolerate Partial Shade) + Well-drained Soil + Watering as Needed + Tree Fertilizer = Healthy Maple Trees with Beautiful Fall Foliage
+- Hosta (Hosta spp.): Growth Formula: Shade to Partial Shade + Moist Soil + Consistent Watering + Organic Enrichment = Lush Hosta Foliage and Striking Clumps
+- Daylily (Hemerocallis spp.): Growth Formula: Sun to Partial Shade + Well-drained Soil + Regular Watering + Balanced Flower Fertilizer = Colorful Daylily Blooms and Strong Foliage
+- Chrysanthemum (Chrysanthemum spp.): Growth Formula: Sunlight + Well-drained Soil + Moderate Watering + Chrysanthemum Fertilizer = Abundant Chrysanthemum Flowers and Compact Growth
+- Peony (Paeonia spp.): Growth Formula: Sun to Partial Shade + Rich, Well-drained Soil + Regular Watering + Organic Matter = Large, Fragrant Peony Blooms and Robust Stems
+- Rose (Rosa spp.): Growth Formula: Sunlight + Fertile Soil + Consistent Watering + Rose Fertilizer = Healthy Rose Bushes with Beautiful Blooms and Healthy Foliage
+
+Interactions:
+
+For each left most piece (plant type), there is a selection of pieces that could potentially  match in each of the slots: 
+- amount of sun
+- soil type
+- water needs
+- fertilizer type
+
+For each category, we should show 4 alternatives for each one as they are worked on.  If the user chooses the correct one it is locked in place.   IF they choose the wrong one, it buzzes and disappears.
+
+At the top of the screen, there should be a hud that shows for each of the 7 puzzles, it shows solved puzzle status with a hidden letter that is revealed when it is solved.  The solved puzzle will show the letters of the word "Petunia" and when all puzzles are shown, it will show a picture of a petunia.
+
+
+## Assets needed:
+256x256 photo or illustration of:
+### Types of plant (photo)
+- tomato on plant
+- sunflower on stalk
+- maple tree
+- hosta
+- daylily
+- chrysanthemum
+- peony
+- rose on bush
+### Types of Sun
+- full sun
+- partal sun
+- Shade to Partial Shade: Illustration of shaded area with dappled sunlight.
+### Types of soil
+- sandy (well drained) soil - Illustration of soil with proper drainage, perhaps with water draining away.
+- moist soil - Illustration of soil with appropriate moisture, not overly wet or dry.
+- rich/fertile soil - Illustration of healthy soil with visible nutrients and texture.
+- Rich, Well-drained Soil: Illustration combining rich soil with good drainage properties.
+### Types of watering
+    Adequate Watering: Illustration of watering can or a hose watering the plants.
+    Regular/Consistent Watering: Illustration of plants being watered on a consistent schedule. or a watering schedule
+
+### Types of fertalizer
+-    Nutrient-rich Fertilizer: Illustration of a bag or container of fertilizer with visible nutrients.
+-    Balanced Fertilizer: Illustration of a fertilizer bag with balanced N-P-K ratios (Nitrogen, Phosphorus, Potassium).
+-    Tree Fertilizer: Illustration of fertilizer specifically formulated for trees, perhaps with a tree and fertilizer bag
+-    Organic Enrichment: Illustration of organic matter like compost or mulch being added to soil.
+-    Balanced Flower Fertilizer: Illustration of fertilizer specifically formulated for flowering plants.
+-    Chrysanthemum Fertilizer: Illustration of fertilizer designed for chrysanthemum plants, perhaps with chrysanthemum flowers.
+-    Organic Matter: Illustration of compost or organic material being mixed into the soil.
+-    Rose Fertilizer: Illustration of fertilizer tailored for roses, perhaps with rose flowers or bushes.
+
+Picture of a petunia
