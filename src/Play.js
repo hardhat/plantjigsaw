@@ -20,8 +20,6 @@ export class Play extends Phaser.Scene
 
     plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "cars-back"];
 
-    typeNames = ["card-0", "card-1", "card-2", "card-3"];
-
     // Cards Game Objects
     cards = [];
 
@@ -209,23 +207,20 @@ export class Play extends Phaser.Scene
     }
 
     changeScene(){
-        this.cameras.main.fadeOut(200 * this.cards.length);
-        this.cards.reverse().map((card, index) => {
-            this.add.tween({
-                targets: card.gameObject,
-                duration: 500,
-                y: 1000,
-                delay: index * 100,
-                onComplete: () => {
-                    card.gameObject.destroy();
-                }
-            })
-          });
+      this.cameras.main.fadeOut(200 * this.cards.length);
+      this.cards.reverse().map((card, index) => {
+      this.add.tween({
+          targets: card.gameObject,
+          duration: 500,
+          y: 1000,
+          delay: index * 100,
+          onComplete: () => {
+            card.gameObject.destroy();
+          }
+        })
+      });
 
-        this.cameras.main.fadeIn(200 * this.cards.length);
-
-
-
+      this.cameras.main.fadeIn(200 * this.cards.length);
       this.time.addEvent({
           delay: 200 * this.cards.length,
           callback: () => {
