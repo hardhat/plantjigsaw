@@ -6,7 +6,8 @@ export const createCard = ({
     x,
     y,
     frontTexture,
-    cardName
+    cardName,
+    draggable
 }) => {
 
     let isFlipping = false;
@@ -14,12 +15,16 @@ export const createCard = ({
 
     const backTexture = "card-back";
 
-    const card = scene.add.plane(x, y, backTexture)
+    const card = scene.add.plane(x, y, frontTexture)
         .setName(cardName)
-        .setInteractive();
+        .setInteractive({draggable: draggable});
 
     // start with the card face down
     card.modelRotationY = 180;
+    card.on('drag', (pointer,x,y) => {
+      card.x = x;
+      card.y = y;
+    });
 
     const flipCard = (callbackComplete) => {
         if (isFlipping) {
@@ -53,10 +58,10 @@ export const createCard = ({
                 card.rotateY = 180 + rotation.y;
                 const cardRotation = Math.floor(card.rotateY) % 360;
                 if ((cardRotation >= 0 && cardRotation <= 90) || (cardRotation >= 270 && cardRotation <= 359)) {
-                    card.setTexture(frontTexture);
+                    card.setTexture(backTexture);
                 }
                 else {
-                    card.setTexture(backTexture);
+                    card.setTexture(frontTexture);
                 }
             },
             onComplete: () => {

@@ -31,6 +31,12 @@ export class Preloader extends Phaser.Scene
         this.load.image("card-3", "cards/card-3.png");
         this.load.image("card-4", "cards/card-4.png");
         this.load.image("card-5", "cards/card-5.png");
+        this.load.svg("d-fertile", "cards/d-fertile.svg");
+        this.load.svg("f-balanced", "cards/f-balanced.svg");
+        this.load.svg("p-hosta", "cards/p-hosta.svg");
+        this.load.svg("s-full", "cards/s-full.svg");
+        this.load.svg("w-adequate", "cards/w-adequate.svg");
+
 
         this.load.image("heart", "ui/heart.png");
 

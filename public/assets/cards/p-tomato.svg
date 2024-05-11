@@ -9,6 +9,9 @@
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="p-tomato.svg"
+   inkscape:export-filename="C:\Users\arnot\Documents\2024 ToJam\plantjigsaw\public\assets\cards\p-tomato.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -26,8 +29,8 @@
      showgrid="false"
      units="px"
      inkscape:zoom="6.6328125"
-     inkscape:cx="45.305065"
-     inkscape:cy="64"
+     inkscape:cx="41.083628"
+     inkscape:cy="51.938751"
      inkscape:window-width="1845"
      inkscape:window-height="1057"
      inkscape:window-x="67"
@@ -47,8 +50,8 @@
   </defs>
   <g
      inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     inkscape:groupmode="layer">
     <image
        width="26.19375"
        height="33.866669"
@@ -1415,6 +1418,14 @@ ktkOumUmwMYX4JymlCzrMUnAOBP/2Q==
        id="image843"
        x="2.220446e-16"
        y="3.469447e-18" />
+    <rect
+       style="opacity:0.01;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-opacity:1"
+       id="rect1919"
+       width="15.676797"
+       height="17.671299"
+       x="-0.91747153"
+       y="-0.598351"
+       ry="7.454556" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -1423,7 +1434,7 @@ ktkOumUmwMYX4JymlCzrMUnAOBP/2Q==
      sodipodi:insensitive="true">
     <path
        id="rect887"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.454152;stroke-opacity:1"
-       d="M 6.8248137,0.24899451 C 3.677217,0.3431345 0.82478856,2.8796637 0.34584838,6.0209536 0.11696255,7.9292549 0.30261078,9.864382 0.24268197,11.783051 c 0.0163419,5.140387 -0.0323351,10.282869 0.0236898,15.421984 0.18769599,3.217659 2.87109063,6.037681 6.04742633,6.368252 2.6488501,0.126631 5.3084409,0.01566 7.9612559,0.05301 1.941977,-0.05042 3.895364,0.103698 5.830318,-0.08137 3.142298,-0.432315 5.724682,-3.294498 5.843905,-6.493723 0.02564,-6.730845 0.01975,-13.46422 0.0029,-20.1952476 C 25.848794,3.654977 23.282303,0.77284523 20.138657,0.32877366 18.11666,0.12932294 16.073826,0.29611894 14.043921,0.24142524 c -2.406336,0.005289 -4.8129591,-0.0104301 -7.2191447,0.007571 z" />
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.981813;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 6.9540685,0.51313563 C 3.8711099,0.60578529 1.0772581,3.1021588 0.60815321,6.1937192 0.38396771,8.0718103 0.56580348,9.9763028 0.50710539,11.864597 c 0.0160063,5.05901 -0.0316711,10.120081 0.0232033,15.17784 0.18384153,3.16672 2.81213081,5.942098 5.92323821,6.267436 2.5944541,0.124626 5.1994281,0.01541 7.7977661,0.05217 1.902096,-0.04963 3.81537,0.102056 5.710588,-0.08009 3.077769,-0.425471 5.607122,-3.242343 5.723896,-6.390921 0.02511,-6.62429 0.01935,-13.251069 0.0028,-19.8755379 C 25.587339,3.8651972 23.073552,1.0286923 19.994463,0.59165082 18.01399,0.39535758 16.013106,0.55951308 14.024887,0.50568517 c -2.35692,0.005206 -4.7141213,-0.0102649 -7.0708942,0.007451 z" />
   </g>
 </svg>
