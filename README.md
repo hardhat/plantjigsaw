@@ -84,10 +84,9 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 -    Nutrient-rich Fertilizer: Illustration of a bag or container of fertilizer with visible nutrients.
 -    Balanced Fertilizer: Illustration of a fertilizer bag with balanced N-P-K ratios (Nitrogen, Phosphorus, Potassium).
 -    Tree Fertilizer: Illustration of fertilizer specifically formulated for trees, perhaps with a tree and fertilizer bag
--    Organic Enrichment: Illustration of organic matter like compost or mulch being added to soil.
+-    Organic Matter/Enrichment: Illustration of organic matter like compost or mulch being added to soil. OR Illustration of compost or organic material being mixed into the soil. 
 -    Balanced Flower Fertilizer: Illustration of fertilizer specifically formulated for flowering plants.
 -    Chrysanthemum Fertilizer: Illustration of fertilizer designed for chrysanthemum plants, perhaps with chrysanthemum flowers.
--    Organic Matter: Illustration of compost or organic material being mixed into the soil.
 -    Rose Fertilizer: Illustration of fertilizer tailored for roses, perhaps with rose flowers or bushes.
 
 ### End of game reward (with escape room clue)
