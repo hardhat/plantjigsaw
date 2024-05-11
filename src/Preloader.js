@@ -39,5 +39,7 @@ export class Preloader extends Phaser.Scene
     create ()
     {
         this.scene.start("Play");
+        //this.scene.start("Puzzle");
+        //this.scene.pause("Puzzle");
     }
 }

@@ -17,6 +17,11 @@ export class Play extends Phaser.Scene
 {
     // All cards names
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
+
+    plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "cars-back"];
+
+    typeNames = ["card-0", "card-1", "card-2", "card-3"];
+
     // Cards Game Objects
     cards = [];
 
@@ -26,15 +31,18 @@ export class Play extends Phaser.Scene
     // Can play the game
     canMove = false;
 
+    // is in plant Selection
+    plantSelection = false;
     // Game variables
     lives = 0;
-
+    // is plant Solved
+    plantSolved = false;
     // Grid configuration
     gridConfiguration = {
-        x: 113,
+        x: 90,
         y: 102,
-        paddingX: 10,
-        paddingY: 10
+        paddingX: 5,
+        paddingY: 5
     }
 
     constructor ()
@@ -55,7 +63,7 @@ export class Play extends Phaser.Scene
     create ()
     {
         // Background image
-        this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
+        //this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
 
         const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
             "Memory Card Game\nClick to Play",
@@ -94,6 +102,7 @@ export class Play extends Phaser.Scene
                         this.sound.play("theme-song", { loop: true, volume: .5 });
                     }
                     this.startGame();
+
                 }
             })
         });
@@ -129,12 +138,14 @@ export class Play extends Phaser.Scene
     createGridCards ()
     {
         // Phaser random array position
-        const gridCardNames = Phaser.Utils.Array.Shuffle([...this.cardNames, ...this.cardNames]);
+        //const gridCardNames = Phaser.Utils.Array.Shuffle([...this.cardNames, ...this.cardNames]);
+        const gridCardNames = Phaser.Utils.Array.Shuffle([...this.plantNames]);
+
 
         return gridCardNames.map((name, index) => {
             const newCard = createCard({
                 scene: this,
-                x: this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX) * (index % 4),
+                x: this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX) * (index % 7),
                 y: -1000,
                 frontTexture: name,
                 cardName: name
@@ -144,7 +155,7 @@ export class Play extends Phaser.Scene
                 duration: 800,
                 delay: index * 100,
                 onStart: () => this.sound.play("card-slide", { volume: 1.2 }),
-                y: this.gridConfiguration.y + (128 + this.gridConfiguration.paddingY) * Math.floor(index / 4)
+                y: this.gridConfiguration.y + (128 + this.gridConfiguration.paddingY) //* Math.floor(index / 4)//
             })
             return newCard;
         });
@@ -197,6 +208,35 @@ export class Play extends Phaser.Scene
         });
     }
 
+    changeScene(){
+        this.cameras.main.fadeOut(200 * this.cards.length);
+        this.cards.reverse().map((card, index) => {
+            this.add.tween({
+                targets: card.gameObject,
+                duration: 500,
+                y: 1000,
+                delay: index * 100,
+                onComplete: () => {
+                    card.gameObject.destroy();
+                }
+            })
+          });
+
+        this.cameras.main.fadeIn(200 * this.cards.length);
+
+
+
+      this.time.addEvent({
+          delay: 200 * this.cards.length,
+          callback: () => {
+              this.cards = [];
+              this.canMove = false;
+              this.scene.switch('Puzzle');
+              //this.scene.setVisible('Play',false);
+            this.sound.play("card-slide", { volume: 1.2 });
+          }
+      })
+    }
     startGame ()
     {
 
@@ -217,7 +257,7 @@ export class Play extends Phaser.Scene
             .setInteractive();
 
         // Start lifes images
-        const hearts = this.createHearts();
+        //const hearts = this.createHearts();
 
         // Create a grid of cards
         this.cards = this.createGridCards();
@@ -227,6 +267,7 @@ export class Play extends Phaser.Scene
             delay: 200 * this.cards.length,
             callback: () => {
                 this.canMove = true;
+                this.plantSelection = true;
             }
         });
 
@@ -248,6 +289,29 @@ export class Play extends Phaser.Scene
             }
         });
         this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
+            if (this.canMove && this.cards.length){
+              const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
+
+              if(card){
+                this.canMove = false;
+                //check if plant has alredy been solved
+                if(this.plantSelection === true && this.plantSolved === false){
+                  card.flip(() => {
+                    this.changeScene();
+                    //this.scene.switch('Puzzle');
+                    this.plantSelection = true;
+                    this.canMove = true;
+                  });
+                } else {
+                  this.canMove = true;
+                  card.flip(() => {
+
+                  });
+                }
+              }
+            }
+          });
+        /**this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
             if (this.canMove && this.cards.length) {
                 const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
 
@@ -339,7 +403,7 @@ export class Play extends Phaser.Scene
                 }
             }
 
-        });
+        });*/
 
 
         // Text events

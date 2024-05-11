@@ -1,11 +1,12 @@
 import { Preloader } from './Preloader';
 import { Play } from './Play';
+import { Puzzle } from './Puzzle'
 import Phaser from 'phaser';
 
 const config = {
     title: 'Card Memory Game',
     type: Phaser.AUTO,
-    width: 549,
+    width: 800,
     height: 480,
     parent: 'game-container',
     backgroundColor: '#192a56',
@@ -16,7 +17,8 @@ const config = {
     },
     scene: [
         Preloader,
-        Play
+        Play,
+        Puzzle
     ]
 };
 
