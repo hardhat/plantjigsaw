@@ -54,7 +54,7 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 
 ## Assets needed:
 256x256 photo or illustration of:
-### Types of plant (photo)
+### Types of plant (photo?)
 - tomato on plant
 - sunflower on stalk
 - maple tree
@@ -75,7 +75,7 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 ### Types of watering
     Adequate Watering: Illustration of watering can or a hose watering the plants.
     Regular/Consistent Watering: Illustration of plants being watered on a consistent schedule. or a watering schedule
-
+    Moderate Watering: Illustration of watering can with less water than above or less on the schedule
 ### Types of fertalizer
 -    Nutrient-rich Fertilizer: Illustration of a bag or container of fertilizer with visible nutrients.
 -    Balanced Fertilizer: Illustration of a fertilizer bag with balanced N-P-K ratios (Nitrogen, Phosphorus, Potassium).
@@ -86,4 +86,5 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 -    Organic Matter: Illustration of compost or organic material being mixed into the soil.
 -    Rose Fertilizer: Illustration of fertilizer tailored for roses, perhaps with rose flowers or bushes.
 
-Picture of a petunia
+### End of game reward (with escape room clue)
+- Picture of a petunia
