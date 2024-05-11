@@ -53,7 +53,14 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 
 
 ## Assets needed:
-256x256 photo or illustration of:
+99x128 photo or illustration (for card front) of:
+### Places to drop the cards (could be just text)
+- Type of plant 
+- Type of sun
+- Type of soil
+- Type of watering
+- Type of fertilizer
+
 ### Types of plant (photo?)
 - tomato on plant
 - sunflower on stalk
@@ -100,3 +107,6 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 - Completed puzzle (one of seven) flourish (3-5s)
 - Reveal letter of clue chime (1s)
 - Final game victory flourish (5s)
+
+
+Sushi image: <a href='https://pngtree.com/freepng/sushi-hosomaki-simple-food-vector_5949964.html'>png image from pngtree.com/</a>
