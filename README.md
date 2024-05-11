@@ -80,7 +80,7 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 -    Regular/Consistent Watering: Illustration of plants being watered on a consistent schedule. or a watering schedule
 -    Moderate Watering: Illustration of watering can with less water than above or less on the schedule
 
-### Types of fertalizer
+### Types of fertilizer
 -    Nutrient-rich Fertilizer: Illustration of a bag or container of fertilizer with visible nutrients.
 -    Balanced Fertilizer: Illustration of a fertilizer bag with balanced N-P-K ratios (Nitrogen, Phosphorus, Potassium).
 -    Tree Fertilizer: Illustration of fertilizer specifically formulated for trees, perhaps with a tree and fertilizer bag
