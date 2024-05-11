@@ -1,6 +1,23 @@
 # plantjigsaw
 A web based game for learning about plant growth via jigsaw puzzle pieces
 
+## Instructions
+
+
+
+1. Clone the repository.
+
+2. Install dependencies with `npm install`.
+
+3. Start the development server with `npm run dev`.
+
+4. If you want to build the project, run `npm run build`.
+
+![screenshot](screenshot.png)
+
+
+## Game Design
+
 A mad biologist is attempting to take over Camp Samac and only you can help by solving the plant puzzles finding the clues and bringing her to justice.
 
 In an excape room, this will look something like: 
