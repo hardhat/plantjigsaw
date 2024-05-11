@@ -91,3 +91,12 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 
 ### End of game reward (with escape room clue)
 - Picture of a petunia
+
+### Sound effects needed
+- Game start flourish (3-5s)
+- Click on tile piece (0.5s)
+- Sucessful match chime (1s)
+- Bad match buzzer (1s)
+- Completed puzzle (one of seven) flourish (3-5s)
+- Reveal letter of clue chime (1s)
+- Final game victory flourish (5s)
