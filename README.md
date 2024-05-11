@@ -63,19 +63,23 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 - chrysanthemum
 - peony
 - rose on bush
+
 ### Types of Sun
 - full sun
 - partal sun
 - Shade to Partial Shade: Illustration of shaded area with dappled sunlight.
+
 ### Types of soil
 - sandy (well drained) soil - Illustration of soil with proper drainage, perhaps with water draining away.
 - moist soil - Illustration of soil with appropriate moisture, not overly wet or dry.
 - rich/fertile soil - Illustration of healthy soil with visible nutrients and texture.
 - Rich, Well-drained Soil: Illustration combining rich soil with good drainage properties.
+
 ### Types of watering
-    Adequate Watering: Illustration of watering can or a hose watering the plants.
-    Regular/Consistent Watering: Illustration of plants being watered on a consistent schedule. or a watering schedule
-    Moderate Watering: Illustration of watering can with less water than above or less on the schedule
+-    Adequate Watering: Illustration of watering can or a hose watering the plants.
+-    Regular/Consistent Watering: Illustration of plants being watered on a consistent schedule. or a watering schedule
+-    Moderate Watering: Illustration of watering can with less water than above or less on the schedule
+
 ### Types of fertalizer
 -    Nutrient-rich Fertilizer: Illustration of a bag or container of fertilizer with visible nutrients.
 -    Balanced Fertilizer: Illustration of a fertilizer bag with balanced N-P-K ratios (Nitrogen, Phosphorus, Potassium).
