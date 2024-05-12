@@ -100,7 +100,7 @@ export class Puzzle extends Phaser.Scene
                 targets: newModifyerCard.gameObject,
                 duration: 800,
                 delay: index * 100,
-                onStart: () => this.sound.play("card-slide", { volume: 1.2 }),
+                onStart: () => this.sound.play("puzzle-start", { volume: 0.8 }),
                 y: this.gridConfiguration.y + (400 + this.gridConfiguration.paddingY) //* Math.floor(index / 4)//
             })
             return newModifyerCard;

@@ -127,7 +127,7 @@ export class Play extends Phaser.Scene
                 this.cards = [];
                 this.canMove = false;
                 this.scene.restart();
-                this.sound.play("card-slide", { volume: 1.2 });
+                this.sound.play("card-slide", { volume: 0.4 });
             }
         })
     }
@@ -151,7 +151,7 @@ export class Play extends Phaser.Scene
                 targets: newCard.gameObject,
                 duration: 800,
                 delay: index * 100,
-                onStart: () => this.sound.play("card-slide", { volume: 1.2 }),
+                onStart: () => this.sound.play("whoosh", { volume: 0.4 }),
                 y: this.gridConfiguration.y + (128 + this.gridConfiguration.paddingY) //* Math.floor(index / 4)//
             })
             return newCard;
@@ -227,7 +227,7 @@ export class Play extends Phaser.Scene
               this.canMove = false;
               this.scene.switch('Puzzle');
               //this.scene.setVisible('Play',false);
-            this.sound.play("card-slide", { volume: 1.2 });
+              //this.sound.play("card-slide", { volume: 1.2 });
           }
       })
     }
