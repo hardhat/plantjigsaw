@@ -9,7 +9,8 @@ export const createCard = ({
     cardName,
     draggable,
     modifyerType,
-    modifyerCardType
+    modifyerCardType,
+    plantSolution
 }) => {
 
     let isFlipping = false;
@@ -19,7 +20,7 @@ export const createCard = ({
 
     const card = scene.add.plane(x, y, frontTexture)
         //.setName(cardName)
-        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType})
+        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType, solution: plantSolution})
         .setInteractive({draggable: draggable});
 
     // start with the card face down
@@ -91,6 +92,7 @@ export const createCard = ({
         destroy,
         cardName,
         modifyerType,
-        modifyerCardType
+        modifyerCardType,
+        plantSolution
     }
 }
