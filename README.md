@@ -115,7 +115,7 @@ Art Wrangling and Programming: Jillian Arnott
 
 Sound Effects: Isabel  Gutierrez
 
-Music: Grant Craven
+Music: Wiggly Air Wizard: Grant Craven
 
 Programming and Game Design: Dale Wick
 
