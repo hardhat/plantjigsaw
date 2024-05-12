@@ -8,7 +8,8 @@ export const createCard = ({
     frontTexture,
     cardName,
     draggable,
-    modifyerType
+    modifyerType,
+    modifyerCardType
 }) => {
 
     let isFlipping = false;
@@ -17,7 +18,8 @@ export const createCard = ({
     const backTexture = "card-back";
 
     const card = scene.add.plane(x, y, frontTexture)
-        .setName(cardName)
+        //.setName(cardName)
+        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType})
         .setInteractive({draggable: draggable});
 
     // start with the card face down
@@ -87,6 +89,8 @@ export const createCard = ({
         gameObject: card,
         flip: flipCard,
         destroy,
-        cardName
+        cardName,
+        modifyerType,
+        modifyerCardType
     }
 }
