@@ -13,9 +13,9 @@ export class Play extends Phaser.Scene
     // All cards names
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
 
-    plantNames = ["card-6", "card-1", "card-2", "card-3", "card-4", "card-5", "card-7"];
+    plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "card-7"];
 
-    plantSolutions = ["fmar", "fsrb","fsat","psrm","psrf","fsmc","ssrm","ffrr"];
+    plantSolutions = ["fmar", "fsrb","fsat","psrm","psrf","fsmc","ssrm"];
     // Cards Game Objects
     cards = [];
 
@@ -24,9 +24,11 @@ export class Play extends Phaser.Scene
 
     // Can play the game
     canMove = false;
+    puzzleSolved = false;
 
     // is in plant Selection
     plantSelection = false;
+    plantSelected = "";
     // Game variables
     lives = 0;
     // is plant Solved
@@ -46,9 +48,10 @@ export class Play extends Phaser.Scene
         });
     }
 
-    init ()
+    init (data)
     {
         // Fadein camera
+        this.puzzleSolved = data.solved;
         this.cameras.main.fadeIn(500);
         this.lives = 10;
         this.volumeButton();
@@ -58,7 +61,7 @@ export class Play extends Phaser.Scene
     {
         // Background image
         //this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
-
+        //gloabalGameState.currentScene = this.scence.key;
         const goatonapole = this.add.image(this.sys.game.scale.width / 2, this.sys.game.scale.height - 128, "goatonapole");
         const tojamlogo = this.add.image(this.sys.game.scale.width -128, this.sys.game.scale.height - 128, "tojamlogo");
         const teamsushilogo = this.add.image(128, this.sys.game.scale.height - 128, "teamsushilogo");
@@ -137,7 +140,9 @@ export class Play extends Phaser.Scene
     {
         // Phaser random array position
         //const gridCardNames = Phaser.Utils.Array.Shuffle([...this.cardNames, ...this.cardNames]);
-        const gridCardNames = Phaser.Utils.Array.Shuffle([...this.plantNames]);
+        //const gridCardNames = Phaser.Utils.Array.Shuffle([...this.plantNames]);
+        const gridCardNames = [...this.plantNames];
+        const plantSolution = [...this.plantSolutions];
 
 
         return gridCardNames.map((name, index) => {
@@ -146,7 +151,8 @@ export class Play extends Phaser.Scene
                 x: this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX) * (index % 7),
                 y: -1000,
                 frontTexture: name,
-                cardName: name
+                cardName: name,
+                plantSolution: "plantSolution[index]"
             });
             this.add.tween({
                 targets: newCard.gameObject,
@@ -208,7 +214,7 @@ export class Play extends Phaser.Scene
     }
 
     changeScene(){
-      this.cameras.main.fadeOut(200 * this.cards.length);
+      /**this.cameras.main.fadeOut(200 * this.cards.length);
       this.cards.reverse().map((card, index) => {
       this.add.tween({
           targets: card.gameObject,
@@ -219,15 +225,17 @@ export class Play extends Phaser.Scene
             card.gameObject.destroy();
           }
         })
-      });
+      });*/
 
       this.cameras.main.fadeIn(200 * this.cards.length);
       this.time.addEvent({
           delay: 200 * this.cards.length,
           callback: () => {
-              this.cards = [];
-              this.canMove = false;
-              this.scene.switch('Puzzle');
+              //this.cards = [];
+              this.canMove = true;
+              this.plantSelection = true;
+              this.scene.switch('Puzzle', {plant: this.plantSelected});
+
               //this.scene.setVisible('Play',false);
               //this.sound.play("card-slide", { volume: 1.2 });
           }
@@ -284,15 +292,19 @@ export class Play extends Phaser.Scene
                 }
             }
         });
-        this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
+        this.input.on('pointerdown', (pointer) => {
             if (this.canMove && this.cards.length){
               const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
+              card.gameObject.getData('solution');
 
               if(card){
                 this.canMove = false;
                 //check if plant has alredy been solved
-                if(this.plantSelection === true && this.plantSolved === false){
+                if(this.plantSelection === true /**this.plantSolved === false*/){
+                  this.plantSelected = card.gameObject.getData('solution');
                   card.flip(() => {
+                    console.log(this.plantSelected);
+                    console.log(card.gameObject.getData('solution'));
                     this.changeScene();
                     //this.scene.switch('Puzzle');
                     this.plantSelection = true;
@@ -307,100 +319,6 @@ export class Play extends Phaser.Scene
               }
             }
           });
-        /**this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
-            if (this.canMove && this.cards.length) {
-                const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
-
-                if (card) {
-                    this.canMove = false;
-
-                    // Detect if there is a card opened
-                    if (this.cardOpened !== undefined) {
-                        // If the card is the same that the opened not do anything
-                        if (this.cardOpened.gameObject.x === card.gameObject.x && this.cardOpened.gameObject.y === card.gameObject.y) {
-                            this.canMove = true;
-                            return false;
-                        }
-
-                        card.flip(() => {
-                            if (this.cardOpened.cardName === card.cardName) {
-                                // ------- Match -------
-                                this.sound.play("card-match");
-                                // Destroy card selected and card opened from history
-                                this.cardOpened.destroy();
-                                card.destroy();
-
-                                // remove card destroyed from array
-                                this.cards = this.cards.filter(cardLocal => cardLocal.cardName !== card.cardName);
-                                // reset history card opened
-                                this.cardOpened = undefined;
-                                this.canMove = true;
-
-                            } else {
-                                // ------- No match -------
-                                this.sound.play("card-mismatch");
-                                this.cameras.main.shake(600, 0.01);
-                                // remove life and heart
-                                const lastHeart = hearts[hearts.length - 1];
-                                this.add.tween({
-                                    targets: lastHeart,
-                                    ease: Phaser.Math.Easing.Expo.InOut,
-                                    duration: 1000,
-                                    y: - 1000,
-                                    onComplete: () => {
-                                        lastHeart.destroy();
-                                        hearts.pop();
-                                    }
-                                });
-                                this.lives -= 1;
-                                // Flip last card selected and flip the card opened from history and reset history
-                                card.flip();
-                                this.cardOpened.flip(() => {
-                                    this.cardOpened = undefined;
-                                    this.canMove = true;
-
-                                });
-                            }
-
-                            // Check if the game is over
-                            if (this.lives === 0) {
-                                // Show Game Over text
-                                this.sound.play("whoosh", { volume: 1.3 });
-                                this.add.tween({
-                                    targets: gameOverText,
-                                    ease: Phaser.Math.Easing.Bounce.Out,
-                                    y: this.sys.game.scale.height / 2,
-                                });
-
-                                this.canMove = false;
-                            }
-
-                            // Check if the game is won
-                            if (this.cards.length === 0) {
-                                this.sound.play("whoosh", { volume: 1.3 });
-                                this.sound.play("victory");
-
-                                this.add.tween({
-                                    targets: winnerText,
-                                    ease: Phaser.Math.Easing.Bounce.Out,
-                                    y: this.sys.game.scale.height / 2,
-                                });
-                                this.canMove = false;
-                            }
-                        });
-
-                    } else if (this.cardOpened === undefined && this.lives > 0 && this.cards.length > 0) {
-                        // If there is not a card opened save the card selected
-                        card.flip(() => {
-                            this.canMove = true;
-                        });
-                        this.cardOpened = card;
-                    }
-                }
-            }
-
-        });*/
-
 
         // Text events
         winnerText.on(Phaser.Input.Events.POINTER_OVER, () => {
