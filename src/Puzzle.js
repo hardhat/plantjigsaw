@@ -9,6 +9,10 @@ export class Puzzle extends Phaser.Scene
     //Modifyer names
     //ModifyerNames = ["d-fertile", "f-balanced", "p-hosta", "s-full", "w-adequate"];
     ModifyerNames = ["card-0", "card-1", "card-2", "card-3","card-4","card-5","card-6", "card-7","card-7"];
+
+    modifyerTypes = ["sun","sun","sun","dirt","dirt","dirt","dirt","water","water","water","fertilizer",,"fertilizer","fertilizer","fertilizer","fertilizer","fertilizer","fertilizer"];
+
+    ModifyerCardType = ["full","partial","shade","moist","sandy","fertile","rich","adequate","moderate","regular","balanced","mum","mulch","rich","rose","tree","flower"];
     // card arry
     cards = [];
     //modifyer array
@@ -23,6 +27,14 @@ export class Puzzle extends Phaser.Scene
         y: 0,
         paddingX: 60,
         paddingY: 10
+    }
+
+    solution = {
+      sun: "",
+      dirt: "",
+      watering: "",
+      fertilizer: ""
+
     }
     canMove = false;
 
@@ -41,6 +53,8 @@ export class Puzzle extends Phaser.Scene
     cardThere = false;
     isCardThere = [];
     cardPlaced = 0;
+    orginX = 0;
+    orginY = 0;
 
     constructor()
     {
@@ -59,25 +73,8 @@ export class Puzzle extends Phaser.Scene
 
     create ()
     {
-        //this.scene.start("Play");
-        /**const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
-            "Puzzle part",
-            { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
-        )
-            .setOrigin(.5)
-            .setDepth(3)
-            .setInteractive();
-
-        this.add.tween({
-          targets: titleText,
-          duration: 800,
-          ease: (value) => (value > .8),
-          alpha: 0,
-          repeat: -1,
-          yoyo: true,
-        });*/
         this.startPuzzle();
-        //this.scene.switch("Play");
+
     }
     createModifyerCards ()
     {
@@ -120,10 +117,56 @@ export class Puzzle extends Phaser.Scene
       });
       return gridTypeZones;
     }
+    genrateSolutions(plant){
+      const chars = Array.from(plant);
+      for(let i = 0; i < chars.length; i++){
+        if(chars[0] == "f"){
+          this.solution.sun = "full";
+        } else if(chars[0] == "p") {
+          this.solution.sun = "partial";
+        } else {
+          this.solution.sun = "shade";
+        }
+        if(chars[1] == "m"){
+          this.solution.dirt = "moist";
+        } else if(chars[1] == "s") {
+          this.solution.dirt = "sandy";
+        } else if (chars[1] == "r"){
+          this.solution.dirt = "rich";
+        } else {
+          this.solution.dirt ="fertile";
+        }
+        if(chars[2] == "a"){
+          this.solution.watering = "adequate";
+        } else if(chars[2] == "m") {
+          this.solution.watering = "moderate";
+        } else {
+          this.solution.watering = "regular";
+        }
+        if(chars[3] == "f"){
+          this.solution.fertilizer = "flower";
+        } else if(chars[3] == "r") {
+          this.solution.fertilizer = "rich";
+        } else if(chars[3] == "b"){
+          this.solution.fertilizer = "balanced";
+        } else if(chars[3] == "m") {
+          this.solution.fertilizer = "mulch";
+        } else if(chars[3] == "c"){
+          this.solution.fertilizer = "mum";
+        } else if(chars[3] == "o") {
+          this.solution.fertilizer = "rose";
+        } else {
+          this.solution.fertilizer = "tree";
+        }
+        console.log(this.solution.sun);
+        console.log(chars[i]);
+      }
+    }
     startPuzzle() {
       //this.cards = this.createTypeCards();
       this.modifyerCards = this.createModifyerCards();
       this.typeZone = this.createTypeZones();
+      this.genrateSolutions("fmar");
       const group = this.make.group("puzzle", this.modifyerCards);
 
       // start canMOve
@@ -133,33 +176,11 @@ export class Puzzle extends Phaser.Scene
               this.canMove = true;
           }
       });
-      //card logic
-      /*this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
-          if (this.canMove) {
-              const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
-              const modifyerCard = this.modifyerCards.find(modifyerCard => modifyerCard.gameObject.hasFaceAt(pointer.x, pointer.y));
-              if (card || modifyerCard) {
-
-                  if(this.cardSelected !== undefined){
-                    //this.cardSelected.onDrag();
-                  }
-                  this.input.setDefaultCursor("pointer");
-              } else {
-                  if(go[0]) {
-                      if(go[0].name !== "volume-icon") {
-                          this.input.setDefaultCursor("pointer");
-                      }
-                  } else {
-                      this.input.setDefaultCursor("default");
-                  }
-              }
-          }
-      });*/
       this.input.on('pointerover',(event,gameObject) =>{
           //this.children.bringToTop(gameObject[0]);
           if(this.cardPlaced < 4){
           gameObject[0].y = gameObject[0].y - 50;
-        }
+          }
       });
       this.input.on('pointerout',(event,gameObject) =>{
           //this.children.sendToBack(gameObject[0]);
@@ -169,6 +190,7 @@ export class Puzzle extends Phaser.Scene
       });
       this.input.on('drag', (pointer,gameObject, dragX, dragY) => {
         if(this.cardPlaced < 4){
+
           gameObject.x = dragX;
           gameObject.y = dragY;
         }
@@ -182,19 +204,36 @@ export class Puzzle extends Phaser.Scene
             gameObject.y = gameObject.input.dragStartY;
           }
       });
+      /**this.input.on('dragenter', (pointer, gameObject,dropZone) => {
+          console.log("enter");
+          if(this.cardThere == true && dropZone.isCardThere == true){
+            dropZone.isCardThere = true;
+          }
+          //dropZone.isCardThere = true;
+      });*/
+      this.input.on('dragleave', (pointer, gameObject, dropZone) => {
+        console.log("exit");
+          dropZone.isCardThere = false;
+          this.cardThere = false;
+          gameObject.x = this.orignX;
+          gameObject.y = this.orignY;
+
+      });
       this.input.on('drop', (pointer,gameObject, dropZone) => {
+          const card = this.modifyerCards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
           //check if a card is there in dropZon
           if(dropZone.isCardThere == false && this.cardPlaced < 4){
             gameObject.x = (dropZone.x);
             gameObject.y = dropZone.y - 50;
+            this.cardThere = true;
             dropZone.isCardThere = true;
-            this.cardPlaced += 1;
+            //this.cardPlaced += 1;
             console.log(this.cardPlaced);
             console.log(dropZone.isCardThere);
-            // remove drop zone from
+
             if(gameObject.name == dropZone.name){
               console.log("correct");
-              gameObject.input.enabled = false;
+              //gameObject.input.enabled = false;
             } else {
               console.log("wrong");
             }
@@ -202,12 +241,14 @@ export class Puzzle extends Phaser.Scene
             console.log("cant place there");
             gameObject.x = gameObject.input.dragStartX;
             gameObject.y = gameObject.input.dragStartY;
+            //dropZone.isCardThere = false;
           }
       });
       this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) =>
     {
       if(this.cardPlaced == 4){
         console.log("check choices");
+
       }
     });
     }
