@@ -2,12 +2,7 @@ import { createCard } from './createCard';
 import Phaser from 'phaser';
 
 /**
- * Card Memory Game by Francisco Pereira (Gammafp)
- * -----------------------------------------------
- *
- * Test your memory skills in this classic game of matching pairs.
- * Flip over cards to reveal pictures, and try to remember where each image is located.
- * Match all the pairs to win!
+ * plantjigsaw by Team Sushi drived from Card Memory Game by Francisco Pereira (Gammafp)
  *
  * Music credits:
  * "Fat Caps" by Audionautix is licensed under the Creative Commons Attribution 4.0 license. https://creativecommons.org/licenses/by/4.0/
@@ -63,8 +58,11 @@ export class Play extends Phaser.Scene
         // Background image
         //this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
 
-        const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
-            "Memory Card Game\nClick to Play",
+        const goatonapole = this.add.image(this.sys.game.scale.width / 2, this.sys.game.scale.height - 128, "goatonapole");
+        const tojamlogo = this.add.image(this.sys.game.scale.width -128, this.sys.game.scale.height - 128, "tojamlogo");
+        const teamsushilogo = this.add.image(128, this.sys.game.scale.height - 128, "teamsushilogo");
+        const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2 - 64,
+            "Plant Growth Card Game\nClick to Play",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
         )
             .setOrigin(.5)
