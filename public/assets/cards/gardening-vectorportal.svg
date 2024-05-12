@@ -479,7 +479,7 @@
        height="128"
        margin="0"
        bleed="0"
-       inkscape:export-filename="card-back.png"
+       inkscape:export-filename="..\..\..\..\..\OneDrive\Documents\GitHub\plantjigsaw\public\assets\cards\card-back.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
   </sodipodi:namedview>
@@ -489,8 +489,8 @@
      inkscape:label="Layer 1">
     <path
        id="path1"
-       d="M -5.6010296,134.63064 H 105.03988 V -34.985819 H -5.6010296 Z"
-       style="fill:#ffffff icc-color(sRGB-IEC61966-2, 0.1, 1, 1, 1);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.223841" />
+       d="M 0,115.52124 H 99.76832 V 15.75292 H 0 Z"
+       style="fill:#ffffff icc-color(sRGB-IEC61966-2, 0.1, 1, 1, 1);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.16302" />
     <path
        id="path2"
        d="m 0,0 c -113.593,-67.76 -207.395,-213.395 -124.303,-338.667 79.824,-120.347 281.059,-120.743 385.722,-34.689 40.317,33.148 77.656,82.344 44.97,132.411 -39.611,60.677 -123.41,15.574 -170.695,44.823 -70.097,43.36 -23.868,81.468 -12.965,137.104 C 140,29.116 74.964,44.717 0,0"
@@ -808,6 +808,9 @@
        d="m 0,0 c -1.381,0 -2.5,1.119 -2.5,2.5 v 26.409 c 0,2.071 1.685,3.756 3.756,3.756 h 173.875 c 1.381,0 2.5,-1.119 2.5,-2.5 0,-1.381 -1.119,-2.5 -2.5,-2.5 H 2.5 V 2.5 C 2.5,1.119 1.381,0 0,0"
        style="fill:#bb8759 icc-color(sRGB-IEC61966-2, 0.1, 0.73298645, 0.5289917, 0.34899902);fill-opacity:1;fill-rule:nonzero;stroke:none"
        transform="matrix(0.16302013,0,0,-0.16302013,22.351267,77.38217)"
-       clip-path="url(#clipPath96)" />
+       clip-path="url(#clipPath96)"
+       inkscape:export-filename="..\..\icon.png"
+       inkscape:export-xdpi="246.3307"
+       inkscape:export-ydpi="246.3307" />
   </g>
 </svg>
