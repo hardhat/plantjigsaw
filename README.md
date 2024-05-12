@@ -113,7 +113,7 @@ Programming: Joseph McCabe
 
 Art Wrangling and Programming: Jillian Arnott
 
-Sound Effects: Isa Marie Gutierrez
+Sound Effects: Isabel  Gutierrez
 
 Music: Grant Craven
 
