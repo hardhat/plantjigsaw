@@ -14,6 +14,7 @@ export class Play extends Phaser.Scene
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
 
     plantNames = ["card-6", "card-1", "card-2", "card-3", "card-4", "card-5", "card-7"];
+    
 
     // Cards Game Objects
     cards = [];
@@ -157,6 +158,7 @@ export class Play extends Phaser.Scene
             return newCard;
         });
     }
+
 
     createHearts ()
     {
