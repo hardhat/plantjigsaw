@@ -7,7 +7,8 @@ export const createCard = ({
     y,
     frontTexture,
     cardName,
-    draggable
+    draggable,
+    modifyerType
 }) => {
 
     let isFlipping = false;
@@ -21,7 +22,7 @@ export const createCard = ({
 
     // start with the card face down
     card.modelRotationY = 180;
-    
+
 
     const flipCard = (callbackComplete) => {
         if (isFlipping) {
