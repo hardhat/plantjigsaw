@@ -9,12 +9,14 @@ export class Puzzle extends Phaser.Scene
     //Modifyer names
     //ModifyerNames = ["d-fertile", "f-balanced", "p-hosta", "s-full", "w-adequate"];
     ModifyerNames = ["card-0", "card-1", "card-2", "card-3"];
-
-
     // card arry
     cards = [];
     //modifyer array
     modifyerCards = [];
+    //modifyer type Zones
+    typeZones = [];
+    //zone Names
+    zoneNames = ["sun", "dirt", "water", "fertilizer"];
 
     gridConfiguration = {
         x: 160,
@@ -30,7 +32,8 @@ export class Puzzle extends Phaser.Scene
     typeSelected = undefined;
 
     // modifyer card type
-    modifyerType = "";
+    modifyerType = "card-0";
+    inZone = false;
 
     // number of correct modifyers
     modifyersCorrect = 0;
@@ -54,7 +57,7 @@ export class Puzzle extends Phaser.Scene
     create ()
     {
         //this.scene.start("Play");
-        const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
+        /**const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2,
             "Puzzle part",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
         )
@@ -69,7 +72,7 @@ export class Puzzle extends Phaser.Scene
           alpha: 0,
           repeat: -1,
           yoyo: true,
-        });
+        });*/
         this.startPuzzle();
         //this.scene.switch("Play");
     }
@@ -111,7 +114,7 @@ export class Puzzle extends Phaser.Scene
         return gridCardNames.map((name, index) => {
             const newModifyerCard = createCard({
                 scene: this,
-                x: this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX) * (index % 4),
+                x: this.gridConfiguration.x + (0 + this.gridConfiguration.paddingX) * (index % 4),
                 y: -1000,
                 frontTexture: name,
                 cardName: name,
@@ -127,9 +130,23 @@ export class Puzzle extends Phaser.Scene
             return newModifyerCard;
         });
     }
+    createTypeZones(){
+      const gridTypeZones = [...this.zoneNames];
+      return gridTypeZones.map((name, index) => {
+        let dropZone = this.add.zone((this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX)*(index % 4)),(this.gridConfiguration.y + (98 + this.gridConfiguration.paddingY)),99,128).setRectangleDropZone(99,128);
+        dropZone.setData({modifyerCards: 0});
+        let dropZoneOutline = this.add.graphics();
+        dropZoneOutline.lineStyle(4, 0xff69b4);
+        dropZoneOutline.strokeRect(dropZone.x - dropZone.input.hitArea.width/2, dropZone.y - dropZone.input.hitArea.height / 2, dropZone.input.hitArea.width, dropZone.input.hitArea.height);
+      })
+      return gridTypeZones;
+    }
     startPuzzle() {
-      this.cards = this.createTypeCards();
+      //this.cards = this.createTypeCards();
       this.modifyerCards = this.createModifyerCards();
+      this.typeZone = this.createTypeZones();
+      const group = this.make.group("puzzle", this.modifyerCards);
+      this.reset = this.add.text();
       // start canMOve
       this.time.addEvent({
           delay: 200 * this.cards.length,
@@ -144,7 +161,7 @@ export class Puzzle extends Phaser.Scene
               const modifyerCard = this.modifyerCards.find(modifyerCard => modifyerCard.gameObject.hasFaceAt(pointer.x, pointer.y));
               if (card || modifyerCard) {
                   if(this.cardSelected !== undefined){
-                    this.cardSelected.onDrag();
+                    //this.cardSelected.onDrag();
                   }
                   this.input.setDefaultCursor("pointer");
               } else {
@@ -158,12 +175,31 @@ export class Puzzle extends Phaser.Scene
               }
           }
       });
-
-      this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
-        if(this.canMove) {
-          const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
-        }
+      this.input.on('drag', (pointer,gameObject, dragX, dragY) => {
+          //if (this.inZone == false){
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+          //}
       });
+      this.input.on('dragstart', (pointer,gameObject) => {
+          this.children.bringToTop(gameObject);
+      });
+      this.input.on('dragend', (pointer,gameObject, dropped) => {
+          if(!dropped){
+            gameObject.x = gameObject.input.dragStartX;
+            gameObject.y = gameObject.input.dragStartY;
+          }
+      });
+      this.input.on('drop', (pointer,gameObject, dropZone) => {
+          gameObject.x = (dropZone.x);
+          gameObject.y = dropZone.y;
+          gameObject.input.enabled = false;
+      });
+
+      /*this.input.on(Phaser.Input.Events.POINTER_DOWN){
+
+      });
+
       //this.cardSelected.on(Phaser.Input.Events.POINTER_UP, stopDrag);
       //this.cardSelected.on(Phaser.Input.Events.POINTER_MOVE, onDrag);
       /**this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {

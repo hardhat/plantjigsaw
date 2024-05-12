@@ -18,7 +18,7 @@ export class Play extends Phaser.Scene
     // All cards names
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
 
-    plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "cars-back"];
+    plantNames = ["card-0", "p-hosta", "card-2", "card-3", "card-4", "card-5", "cars-back"];
 
     // Cards Game Objects
     cards = [];

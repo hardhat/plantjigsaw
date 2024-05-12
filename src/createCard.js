@@ -21,10 +21,7 @@ export const createCard = ({
 
     // start with the card face down
     card.modelRotationY = 180;
-    card.on('drag', (pointer,x,y) => {
-      card.x = x;
-      card.y = y;
-    });
+    
 
     const flipCard = (callbackComplete) => {
         if (isFlipping) {
