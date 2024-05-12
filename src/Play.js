@@ -61,6 +61,7 @@ export class Play extends Phaser.Scene
         const goatonapole = this.add.image(this.sys.game.scale.width / 2, this.sys.game.scale.height - 128, "goatonapole");
         const tojamlogo = this.add.image(this.sys.game.scale.width -128, this.sys.game.scale.height - 128, "tojamlogo");
         const teamsushilogo = this.add.image(128, this.sys.game.scale.height - 128, "teamsushilogo");
+
         const titleText = this.add.text(this.sys.game.scale.width / 2, this.sys.game.scale.height / 2 - 64,
             "Plant Growth Card Game\nClick to Play",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
@@ -90,7 +91,7 @@ export class Play extends Phaser.Scene
         titleText.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.sound.play("whoosh", { volume: 1.3 });
             this.add.tween({
-                targets: titleText,
+                targets: [titleText, goatonapole, tojamlogo, teamsushilogo],
                 ease: Phaser.Math.Easing.Bounce.InOut,
                 y: -1000,
                 onComplete: () => {
