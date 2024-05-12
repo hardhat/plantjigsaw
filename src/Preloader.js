@@ -23,6 +23,8 @@ export class Preloader extends Phaser.Scene
         this.load.audio("card-mismatch", "audio/card-mismatch.mp3");
         this.load.audio("card-slide", "audio/card-slide.mp3");
         this.load.audio("victory", "audio/victory.mp3");
+        this.load.audio("puzzle-complete", "audio/puzzle-complete.mp3");
+        this.load.audio("reveal-letter", "audio/reveal-letter.mp3");
         this.load.image("background");
         this.load.image("card-back", "cards/card-back.png");
         this.load.image("card-0", "cards/p-tomato.png");
