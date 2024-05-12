@@ -108,6 +108,18 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 - Reveal letter of clue chime (1s)
 - Final game victory flourish (5s)
 
+## Credits
+Programming: Joseph McCabe
+
+Art Wrangling and Programming: Jillian Arnott
+
+Sound Effects: Isa Marie Gutierrez
+
+Music: Grant Craven
+
+Programming and Game Design: Dale Wick
+
+Created for TOJam game jam http://www.tojam.ca/ 2024 "Talk About Foreshadowing"
 
 - Sushi image: <a href='https://pngtree.com/freepng/sushi-hosomaki-simple-food-vector_5949964.html'>png image from pngtree.com/</a>
 - Card Back Image by <a href=" https://www.vectorportal.com" >Vectorportal.com</a>,  <a class="external text" href="https://creativecommons.org/licenses/by/4.0/" >CC BY</a>
