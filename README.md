@@ -109,4 +109,5 @@ At the top of the screen, there should be a hud that shows for each of the 7 puz
 - Final game victory flourish (5s)
 
 
-Sushi image: <a href='https://pngtree.com/freepng/sushi-hosomaki-simple-food-vector_5949964.html'>png image from pngtree.com/</a>
+- Sushi image: <a href='https://pngtree.com/freepng/sushi-hosomaki-simple-food-vector_5949964.html'>png image from pngtree.com/</a>
+- Card Back Image by <a href=" https://www.vectorportal.com" >Vectorportal.com</a>,  <a class="external text" href="https://creativecommons.org/licenses/by/4.0/" >CC BY</a>
