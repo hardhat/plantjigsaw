@@ -108,6 +108,8 @@ export class Puzzle extends Phaser.Scene
                 scene: this,
                 x: this.gridConfiguration.x + (-40 + this.gridConfiguration.paddingX) * (index % 17),
                 y: -1000,
+                initX: this.gridConfiguration.x + (-40 + this.gridConfiguration.paddingX) * (index % 17),
+                initY: this.gridConfiguration.y + (400 + this.gridConfiguration.paddingY),
                 frontTexture: name,
                 cardName: name,
                 draggable: true,
@@ -275,11 +277,10 @@ export class Puzzle extends Phaser.Scene
       });
       this.input.on('dragend', (pointer,gameObject, dropped) => {
         if(this.canMove){
-          /*this.orignX = gameObject.input.dragStartX;
-          this.orginY = gameObject.input.dragStartY;*/
           if(!dropped){
-            gameObject.x = gameObject.input.dragStartX;
-            gameObject.y = gameObject.input.dragStartY;
+            gameObject.x = gameObject.getData('initX');
+            gameObject.y = gameObject.getData('initY');
+            //this.children.sendToBack(gameObject);
           }
         }
       });
@@ -299,6 +300,7 @@ export class Puzzle extends Phaser.Scene
           gameObject.y = this.orignY;
         }
       });
+
       this.input.on('drop', (pointer,gameObject, dropZone) => {
         if(this.canMove){
           const card = this.modifyerCards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
@@ -308,14 +310,9 @@ export class Puzzle extends Phaser.Scene
             if(gameObject.getData('type') == dropZone.name){
               gameObject.x = (dropZone.x);
               gameObject.y = dropZone.y -50;
+
               this.cardThere = true;
               dropZone.isCardThere = true;
-              //this.cardPlaced += 1;
-              console.log(this.cardPlaced);
-              console.log(dropZone.isCardThere);
-              console.log(gameObject.getData('name'));
-              console.log(gameObject.getData('type'));
-              console.log(gameObject.getData('cardtype'));
 
               if(gameObject.getData('cardtype') == this.solution.sun){
                 this.correctCards.sun = true;
@@ -330,6 +327,8 @@ export class Puzzle extends Phaser.Scene
                 this.correctCards.fertilizer = true;
                 gameObject.input.enabled = false;
               } else  {
+
+                //gameObject.input.enabled = false;
                 console.log("wrong");
               }
               if(this.correctCards.sun && this.correctCards.dirt && this.correctCards.watering && this.correctCards.fertilizer){
@@ -341,18 +340,11 @@ export class Puzzle extends Phaser.Scene
 
             } else {
               console.log("cant place there");
-              gameObject.x = gameObject.input.dragStartX;
-              gameObject.y = gameObject.input.dragStartY;
-              //gameObject.x = this.orignX;
-              //gameObject.y = this.orignY;
-              //dropZone.isCardThere = false;
+              gameObject.x = gameObject.getData('initX');
+              gameObject.y = gameObject.getData('initY');
             }
-
           }
         }
       });
-      /*8this.events.once(Phaser.Scenes.Events.SHUTDOWN, () =>{
-          this.input.off('pointerdown');
-      });*/
     }
 }

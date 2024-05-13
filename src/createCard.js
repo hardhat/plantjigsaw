@@ -5,6 +5,8 @@ export const createCard = ({
     scene,
     x,
     y,
+    initX,
+    initY,
     frontTexture,
     cardName,
     draggable,
@@ -29,7 +31,7 @@ export const createCard = ({
 
     const card = scene.add.plane(x, y, backTexture)
         //.setName(cardName)
-        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType, solution: plantSolution, solved: solved})
+        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType, solution: plantSolution, solved: solved, initX: initX, initY: initY})
         .setInteractive({draggable: draggable});
 
     // start with the card face down
