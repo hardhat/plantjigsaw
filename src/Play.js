@@ -14,7 +14,7 @@ export class Play extends Phaser.Scene
     // All cards names
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
     //the seven plants names
-    plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "card-7"];
+    plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "card-6"];
     // first letter for sun, then dirt, then watering, then fertilizer
     plantSolutions = ["fmar", "fsrb","fsat","psrm","psrf","fsmc","ssrm"];
     // Cards Game Objects
