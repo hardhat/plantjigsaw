@@ -56,6 +56,7 @@ export class Preloader extends Phaser.Scene
         this.load.image("w-adequate", "cards/w-adequate.png");
         this.load.image("w-moderate", "cards/w-moderate.png");
         this.load.image("w-regular", "cards/w-regular.png");
+        this.load.image("petunia-victory", "cards/images/petunia-victory.jpg");
 
 
         this.load.image("heart", "ui/heart.png");

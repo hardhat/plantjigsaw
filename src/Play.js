@@ -40,6 +40,8 @@ export class Play extends Phaser.Scene
         paddingX: 5,
         paddingY: 5
     }
+    //number of plant Solved
+    plantsCorrect = 0;
 
     constructor ()
     {
@@ -113,8 +115,13 @@ export class Play extends Phaser.Scene
       if(plantSolved){
         //change the plat to being solved then rest the selected card and plant var
         this.cardSelected.gameObject.setData('solved', true);
+        this.plantsCorrect += 1;
         this.cardSelected = undefined;
         this.plantSelected = undefined;
+        if(this.plantsCorrect == 7){
+          console.log('full puzzle solved');
+        }
+        console.log(this.plantsCorrect);
       }
       console.log('solved');
     }
@@ -217,6 +224,11 @@ export class Play extends Phaser.Scene
               //this.sound.play("card-slide", { volume: 1.2 });
           }
       })
+    }
+    update(){
+      if(this.plantsCorrect == 7){
+        const petuniaVirtory = this.add.image(360, 240, "petunia-victory");
+      }
     }
     startGame ()
     {
