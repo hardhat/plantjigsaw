@@ -13,26 +13,24 @@ export class Play extends Phaser.Scene
 {
     // All cards names
     cardNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5"];
-
+    //the seven plants names
     plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "card-7"];
-
+    // first letter for sun, then dirt, then watering, then fertilizer
     plantSolutions = ["fmar", "fsrb","fsat","psrm","psrf","fsmc","ssrm"];
     // Cards Game Objects
     cards = [];
-
     // History of card opened
     cardOpened = undefined;
+    //current card selcted
     cardSelected = undefined;
-
     // Can play the game
     canMove = false;
+    //has the puzzle for that plant solved
     puzzleSolved = false;
-
     // is in plant Selection
     plantSelection = true;
+    // current plant selected
     plantSelected = "";
-    // Game variables
-    lives = 0;
     // is plant Solved
     plantSolved = false;
     // Grid configuration
@@ -52,23 +50,17 @@ export class Play extends Phaser.Scene
 
     init (data)
     {
-        // Fadein camera
+        // initating puzzle result from puzzle scene
         this.puzzleSolved = data.solved;
+        // Fadein camera
         this.cameras.main.fadeIn(500);
-        this.lives = 10;
         this.volumeButton();
     }
 
     create ()
     {
-        // Background image
-        //this.add.image(this.gridConfiguration.x - 63, this.gridConfiguration.y - 77, "background").setOrigin(0);
-        //gloabalGameState.currentScene = this.scence.key;
+        //emmiter handaler for when the puzzle is solved
         eventsCenter.on('update-count', this.plantSolv,this);
-        /*this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-          eventsCenter.off('update-count',this.plantSolved,this);
-        });*/
-
 
         const goatonapole = this.add.image(this.sys.game.scale.width / 2, this.sys.game.scale.height - 128, "goatonapole");
         const tojamlogo = this.add.image(this.sys.game.scale.width -128, this.sys.game.scale.height - 128, "tojamlogo");
@@ -117,15 +109,16 @@ export class Play extends Phaser.Scene
         });
     }
     plantSolv(plantSolved){
+      //function for when plant is solved
       if(plantSolved){
+        //change the plat to being solved then rest the selected card and plant var
         this.cardSelected.gameObject.setData('solved', true);
         this.cardSelected = undefined;
         this.plantSelected = undefined;
-        //console.log(this.cardSelected.gameObject.getData('solved'));
       }
       console.log('solved');
     }
-
+    //propably can be deleted and gotten rid of
     restartGame ()
     {
         this.cardOpened = undefined;
@@ -155,12 +148,9 @@ export class Play extends Phaser.Scene
 
     createGridCards ()
     {
-        // Phaser random array position
-        //const gridCardNames = Phaser.Utils.Array.Shuffle([...this.cardNames, ...this.cardNames]);
-        //const gridCardNames = Phaser.Utils.Array.Shuffle([...this.plantNames]);
+        // list of plat cards and there soulutions
         const gridCardNames = [...this.plantNames];
         const plantSolutions = [...this.plantSolutions];
-
 
         return gridCardNames.map((name, index) => {
             const newCard = createCard({
@@ -183,25 +173,6 @@ export class Play extends Phaser.Scene
             return newCard;
         });
     }
-
-
-    createHearts ()
-    {
-        return Array.from(new Array(this.lives)).map((el, index) => {
-            const heart = this.add.image(this.sys.game.scale.width + 1000, 20, "heart")
-                .setScale(2)
-
-            this.add.tween({
-                targets: heart,
-                ease: Phaser.Math.Easing.Expo.InOut,
-                duration: 1000,
-                delay: 1000 + index * 200,
-                x: 140 + 30 * index // marginLeft + spaceBetween * index
-            });
-            return heart;
-        });
-    }
-
 
     volumeButton ()
     {
@@ -233,19 +204,6 @@ export class Play extends Phaser.Scene
     }
 
     changeScene(){
-      /**this.cameras.main.fadeOut(200 * this.cards.length);
-      this.cards.reverse().map((card, index) => {
-      this.add.tween({
-          targets: card.gameObject,
-          duration: 500,
-          y: 1000,
-          delay: index * 100,
-          onComplete: () => {
-            card.gameObject.destroy();
-          }
-        })
-      });*/
-
       this.cameras.main.fadeIn(200 * this.cards.length);
       this.time.addEvent({
           delay: 200 * this.cards.length,
@@ -260,13 +218,9 @@ export class Play extends Phaser.Scene
           }
       })
     }
-    update(){
-
-    }
     startGame ()
     {
-
-        // WinnerText and GameOverText
+        // WinnerText and GameOverText (propably could be removed or changed)
         const winnerText = this.add.text(this.sys.game.scale.width / 2, -1000, "YOU WIN",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
         ).setOrigin(.5)
@@ -282,12 +236,8 @@ export class Play extends Phaser.Scene
             .setOrigin(.5)
             .setInteractive();
 
-        // Start lifes images
-        //const hearts = this.createHearts();
-
         // Create a grid of cards
         this.cards = this.createGridCards();
-  
 
         // Start canMove
         this.time.addEvent({
@@ -318,20 +268,18 @@ export class Play extends Phaser.Scene
         });
         this.input.on('pointerdown', (pointer) => {
             if (this.canMove && this.cards.length){
+              //determine the card at the pointer
               const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
 
               if(card){
                 this.canMove = false;
-                //check if plant has alredy been solved
+                //check if plant has alredy been selected, solved
                 if(this.plantSelection === true && this.cardSelected == undefined && card.gameObject.getData('solved') == false){
                   card.flip(() => {
                     this.plantSelected = card.gameObject.getData('solution');
                     this.cardSelected = card;
                     console.log(this.plantSelected);
-                    //console.log(card.gameObject.input.enabled);
-                    //eventsCenter.emit('plantSelected', this.plantSelected);
                     this.changeScene();
-                    //this.scene.switch('Puzzle');
                     this.plantSelection = false;
                     this.canMove = false;
                   });
@@ -341,10 +289,7 @@ export class Play extends Phaser.Scene
               }
             }
           });
-          /**this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            this.input.mouse.off('pointerdown')
-          });*/
-        // Text events
+        // currently not doing anything but can be used
         winnerText.on(Phaser.Input.Events.POINTER_OVER, () => {
             winnerText.setColor("#FF7F50");
             this.input.setDefaultCursor("pointer");
