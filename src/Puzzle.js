@@ -9,7 +9,7 @@ export class Puzzle extends Phaser.Scene
     typeNames = ["card-0", "card-1", "card-2", "card-3"];
     //Modifyer names
     //ModifyerNames = ["d-fertile", "f-balanced", "p-hosta", "s-full", "w-adequate"];
-    ModifyerNames = ["card-0", "card-1", "card-2", "card-3","card-4","card-5","card-6", "card-7","card-7","card-0", "card-1", "card-2", "card-3","card-4","card-5","card-6", "card-7"];
+    ModifyerNames = ["s-full", "s-partial", "s-shade", "d-moist","d-sandy","d-fertile","d-rich", "w-adequate","w-moderate","w-regular", "f-balanced", "f-mum", "f-mulch","f-rich","f-rose","f-tree", "f-flowers"];
 
     modifyerTypes = ["sun","sun","sun","dirt","dirt","dirt","dirt","water","water","water","fertilizer","fertilizer","fertilizer","fertilizer","fertilizer","fertilizer","fertilizer"];
 
@@ -250,7 +250,7 @@ export class Puzzle extends Phaser.Scene
         if(this.canMove){
             //this.children.bringToTop(gameObject[0]);
             if(this.cardPlaced < 4 ){
-              gameObject[0].y = gameObject[0].y - 50;
+              gameObject[0].y = gameObject[0].y - 70;
             }
           }
       });
@@ -258,7 +258,7 @@ export class Puzzle extends Phaser.Scene
           if(this.canMove){
           //this.children.sendToBack(gameObject[0]);
           if(this.cardPlaced < 4 ){
-            gameObject[0].y = gameObject[0].y + 50;
+            gameObject[0].y = gameObject[0].y + 70;
           }
         }
       });
@@ -309,7 +309,7 @@ export class Puzzle extends Phaser.Scene
             //check if the card is being placed in the right zone
             if(gameObject.getData('type') == dropZone.name){
               gameObject.x = (dropZone.x);
-              gameObject.y = dropZone.y -50;
+              gameObject.y = dropZone.y -70;
 
               this.cardThere = true;
               dropZone.isCardThere = true;

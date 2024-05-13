@@ -39,11 +39,23 @@ export class Preloader extends Phaser.Scene
         this.load.image("card-5", "cards/p-mum.png");
         this.load.image("card-6", "cards/p-peony.png");
         this.load.image("card-7", "cards/p-rose.png");
-        this.load.svg("d-fertile", "cards/d-fertile.svg");
-        this.load.svg("f-balanced", "cards/f-balanced.svg");
-        this.load.svg("p-hosta", "cards/p-hosta.svg");
-        this.load.svg("s-full", "cards/s-full.svg");
-        this.load.svg("w-adequate", "cards/w-adequate.svg");
+        this.load.image("d-fertile", "cards/d-fertile.png");
+        this.load.image("d-sandy", "cards/d-sandy.png");
+        this.load.image("d-moist", "cards/d-moist.png");
+        this.load.image("d-rich", "cards/d-rich.png");
+        this.load.image("f-balanced", "cards/f-balanced.png");
+        this.load.image("f-flowers", "cards/f-flowers.png");
+        this.load.image("f-mulch", "cards/f-mulch.png");
+        this.load.image("f-mum", "cards/f-mum.png");
+        this.load.image("f-rich", "cards/f-rich.png");
+        this.load.image("f-rose", "cards/f-rose.png");
+        this.load.image("f-tree", "cards/f-tree.png");
+        this.load.image("s-full", "cards/s-full.png");
+        this.load.image("s-partial", "cards/s-partial.png");
+        this.load.image("s-shade", "cards/s-shade.png");
+        this.load.image("w-adequate", "cards/w-adequate.png");
+        this.load.image("w-moderate", "cards/w-moderate.png");
+        this.load.image("w-regular", "cards/w-regular.png");
 
 
         this.load.image("heart", "ui/heart.png");
