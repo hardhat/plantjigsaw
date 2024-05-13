@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { createCard } from './createCard';
 import { zones } from './zones';
+import eventsCenter from './eventCenter'
 
 export class Puzzle extends Phaser.Scene
 {
@@ -63,6 +64,7 @@ export class Puzzle extends Phaser.Scene
     orginX = 0;
     orginY = 0;
     plantSelected = "";
+    plantToSolve = undefined;
 
     constructor()
     {
@@ -74,7 +76,11 @@ export class Puzzle extends Phaser.Scene
     init (data)
     {
         // Fadein camera
+        //this.plantSelected ;
         this.plantSelected = data.plant;
+        this.plantToSolve = data.card;
+        console.log(data.plant);
+        console.log(data.card);
         this.cameras.main.fadeIn(500);
         //this.volumeButton();
     }
@@ -83,6 +89,8 @@ export class Puzzle extends Phaser.Scene
     create ()
     {
         this.startPuzzle();
+        //eventsCenter.on('plantSelected', this.plantSelected, this);
+        //console.log(this.plantSelected);
 
     }
     createModifyerCards ()
@@ -194,7 +202,7 @@ export class Puzzle extends Phaser.Scene
           delay: 200 * this.modifyerCards.length,
           callback: () => {
               this.modifyerCards = [];
-              this.canMove = false;
+              this.canMove = true;
               this.correctCards = {
                 sun: false,
                 dirt: false,
@@ -202,8 +210,13 @@ export class Puzzle extends Phaser.Scene
                 fertilizer: false
               };
               //this.typeZones = [];
-              this.scene.switch("Play", {solved: this.puzzleSolved});
-              this.scene.stop("Puzzle");
+              //this.scene.switch("play");
+              this.scene.setVisible(true, 'Play');
+              this.scene.setActive(true, 'Play', {solved: this.plantSolved, move: this.canMove});
+              this.scene.stop('Puzzle');
+
+
+              //this.scene.switch("Play", {solved: this.puzzleSolved});
               //this.scene.restet('puzzle');
               //his.scene.restart('puzzle');
             //  this.scene.sleep('puzzle')
@@ -211,6 +224,8 @@ export class Puzzle extends Phaser.Scene
               //this.sound.play("card-slide", { volume: 1.2 });
           }
       })
+    }
+    update(){
     }
     startPuzzle() {
       //this.cards = this.createTypeCards();
@@ -320,6 +335,7 @@ export class Puzzle extends Phaser.Scene
               if(this.correctCards.sun && this.correctCards.dirt && this.correctCards.watering && this.correctCards.fertilizer){
                 console.log("thriving tomato plant");
                 this.puzzleSolved = true;
+                eventsCenter.emit('update-count', this.puzzleSolved);
                 this.changeScene();
               }
 
@@ -331,8 +347,12 @@ export class Puzzle extends Phaser.Scene
               //gameObject.y = this.orignY;
               //dropZone.isCardThere = false;
             }
+
           }
         }
       });
+      /*8this.events.once(Phaser.Scenes.Events.SHUTDOWN, () =>{
+          this.input.off('pointerdown');
+      });*/
     }
 }

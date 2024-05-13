@@ -10,21 +10,35 @@ export const createCard = ({
     draggable,
     modifyerType,
     modifyerCardType,
-    plantSolution
+    plantSolution,
+    solved,
+    startFaceDown
 }) => {
 
     let isFlipping = false;
     const rotation = { y: 0 };
 
-    const backTexture = "card-back";
+    var backTexture = "card-back";
+    if(startFaceDown){
+      backTexture = "card-back";
+      frontTexture = frontTexture;
+    } else {
+      backTexture = frontTexture;
+      frontTexture = "card-back";
+    }
 
-    const card = scene.add.plane(x, y, frontTexture)
+    const card = scene.add.plane(x, y, backTexture)
         //.setName(cardName)
-        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType, solution: plantSolution})
+        .setData({name: cardName, type: modifyerType, cardtype: modifyerCardType, solution: plantSolution, solved: solved})
         .setInteractive({draggable: draggable});
 
     // start with the card face down
-    card.modelRotationY = 180;
+    if(startFaceDown){
+      card.modelRotationY = 180;
+    } else {
+      card.modelRotationY = 0;
+    }
+
 
 
     const flipCard = (callbackComplete) => {
@@ -59,10 +73,10 @@ export const createCard = ({
                 card.rotateY = 180 + rotation.y;
                 const cardRotation = Math.floor(card.rotateY) % 360;
                 if ((cardRotation >= 0 && cardRotation <= 90) || (cardRotation >= 270 && cardRotation <= 359)) {
-                    card.setTexture(backTexture);
+                    card.setTexture(frontTexture);
                 }
                 else {
-                    card.setTexture(frontTexture);
+                    card.setTexture(backTexture);
                 }
             },
             onComplete: () => {
@@ -93,6 +107,7 @@ export const createCard = ({
         cardName,
         modifyerType,
         modifyerCardType,
-        plantSolution
+        plantSolution,
+        solved
     }
 }
