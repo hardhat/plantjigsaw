@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { createCard } from './createCard';
-import { zones } from './zones';
 import eventsCenter from './eventCenter'
 
 export class Puzzle extends Phaser.Scene
