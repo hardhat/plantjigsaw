@@ -273,6 +273,7 @@ export class Puzzle extends Phaser.Scene
               this.cardThere = true;
               this.cardDropped = true;
               dropZone.isCardThere = true;
+              this.canMove = true;
               //check if the placed card is the right type and if the card type is correct
               if(gameObject.getData('cardtype') == this.solution.sun){
                 this.correctCards.sun = true;

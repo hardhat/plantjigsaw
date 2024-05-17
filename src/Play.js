@@ -262,14 +262,14 @@ export class Play extends Phaser.Scene
         });
 
         // Game Logic
-        this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
+        this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer, gameObject) => {
             if (this.canMove) {
                 const card = this.cards.find(card => card.gameObject.hasFaceAt(pointer.x, pointer.y));
                 if (card) {
                     this.input.setDefaultCursor("pointer");
                 } else {
-                    if(go[0]) {
-                        if(go[0].name !== "volume-icon") {
+                    if(gameObject[0]) {
+                        if(gameObject[0].name !== "volume-icon") {
                             this.input.setDefaultCursor("pointer");
                         }
                     } else {
