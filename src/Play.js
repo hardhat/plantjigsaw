@@ -211,9 +211,9 @@ export class Play extends Phaser.Scene
     }
 
     changeScene(){
-      this.cameras.main.fadeIn(200 * this.cards.length);
+      //this.cameras.main.fadeIn(200 * this.cards.length);
       this.time.addEvent({
-          delay: 200 * this.cards.length,
+          delay: 0,
           callback: () => {
               //this.cards = [];
               this.canMove = true;
@@ -227,7 +227,7 @@ export class Play extends Phaser.Scene
     }
     update(){
       if(this.plantsCorrect == 7){
-        const petuniaVirtory = this.add.image(360, 240, "petunia-victory");
+        const petuniaVictory = this.add.image(400, 240, "petunia-victory");
       }
     }
     startGame ()

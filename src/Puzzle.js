@@ -22,10 +22,16 @@ export class Puzzle extends Phaser.Scene
     zoneNames = ["sun", "dirt", "water", "fertilizer"];
 
     gridConfiguration = {
-        x: 160,
-        y: 0,
-        paddingX: 60,
-        paddingY: 10
+        x: 61,
+        y: 250,
+        paddingX: 10,
+        paddingY: 5
+    }
+    zoneConfiguration = {
+      x: 160,
+      y: 0,
+      paddingX: 60,
+      paddingY: 10
     }
     //for determing if the right cards have been placed
     correctCards = {
@@ -61,8 +67,6 @@ export class Puzzle extends Phaser.Scene
     plantSelected = "";
     //what plant is needed to be solved passed from play
     plantToSolve = undefined;
-    //is the current card dropped
-    cardDropped = false;
 
     constructor()
     {
@@ -95,22 +99,25 @@ export class Puzzle extends Phaser.Scene
         return gridCardNames.map((name, index) => {
             const newModifyerCard = createCard({
                 scene: this,
-                x: this.gridConfiguration.x + (-40 + this.gridConfiguration.paddingX) * (index % 17),
-                y: -1000,
-                initX: this.gridConfiguration.x + (-40 + this.gridConfiguration.paddingX) * (index % 17),
-                initY: this.gridConfiguration.y + (400 + this.gridConfiguration.paddingY),
+                x: this.gridConfiguration.x + (74 + this.gridConfiguration.paddingX) * (index % 9),
+                y:-1000,
+                initX: this.gridConfiguration.x + (74 + this.gridConfiguration.paddingX) * (index % 9),
+                initY: this.gridConfiguration.y + (128 + this.gridConfiguration.paddingY) * Math.floor(index / 9),
                 frontTexture: name,
                 cardName: name,
                 draggable: true,
                 modifyerType: modifyerType[index],
-                modifyerCardType: modifyerCardType[index]
+                modifyerCardType: modifyerCardType[index],
+                placed: false,
+                scaleX: 0.85,
+                scaleY: 0.85
             });
             this.add.tween({
                 targets: newModifyerCard.gameObject,
                 duration: 800,
                 delay: index * 100,
                 onStart: () => this.sound.play("puzzle-start", { volume: 0.8 }),
-                y: this.gridConfiguration.y + (400 + this.gridConfiguration.paddingY) //* Math.floor(index / 4)//
+                y: this.gridConfiguration.y + (128 + this.gridConfiguration.paddingY) * Math.floor(index / 9)//
             })
             return newModifyerCard;
         });
@@ -118,7 +125,7 @@ export class Puzzle extends Phaser.Scene
     createTypeZones(){
       const dropZones = [...this.zoneNames];
       return dropZones.map((name, index, isCardThere) => {
-        let dropZone = this.add.zone((this.gridConfiguration.x + (98 + this.gridConfiguration.paddingX)*(index % 4)),(this.gridConfiguration.y + (98 + this.gridConfiguration.paddingY)),99,128).setRectangleDropZone(99,128);
+        let dropZone = this.add.zone((this.zoneConfiguration.x + (98 + this.zoneConfiguration.paddingX)*(index % 4)),(this.zoneConfiguration.y + (98 + this.zoneConfiguration.paddingY)),99,128).setRectangleDropZone(99,128);
         dropZone.setData({modifyerCards: 0});
         let dropZoneOutline = this.add.graphics();
         dropZoneOutline.lineStyle(4, 0xff69b4);
@@ -175,7 +182,7 @@ export class Puzzle extends Phaser.Scene
       }
     }
     changeScene(){
-      this.cameras.main.fadeOut(200 * this.modifyerCards.length);
+      /*this.cameras.main.fadeOut(200 * this.modifyerCards.length);
       this.modifyerCards.reverse().map((card, index) => {
       this.add.tween({
           targets: card.gameObject,
@@ -186,11 +193,11 @@ export class Puzzle extends Phaser.Scene
             card.gameObject.destroy();
           }
         })
-      });
+      });*/
 
-      this.cameras.main.fadeIn(200 * this.modifyerCards.length);
+      //this.cameras.main.fadeIn(200 * this.modifyerCards.length);
       this.time.addEvent({
-          delay: 200 * this.modifyerCards.length,
+          delay: 0,
           callback: () => {
             this.modifyerCards = [];
             this.canMove = true;
@@ -223,21 +230,19 @@ export class Puzzle extends Phaser.Scene
           }
       });
       //puzzle logic
-      this.input.on('pointerover',(event,gameObject) =>{
-        if(this.cardDropped == false && this.canMove){
+      /**this.input.on('pointerover',(event,gameObject) =>{
+        if(gameObject[0].getData('placed') == false){
           gameObject[0].y = gameObject[0].y - 70;
-
         }
       });
       this.input.on('pointerout',(event,gameObject) =>{
-        if(this.cardDropped == false && this.canMove){
+        if(gameObject[0].getData('placed') == false){
           gameObject[0].y = gameObject[0].y + 70;
         }
-      });
+      });*/
       this.input.on('drag', (pointer,gameObject, dragX, dragY) => {
           gameObject.x = dragX;
           gameObject.y = dragY;
-          this.cardDropped = false;
 
       });
       this.input.on('dragstart', (pointer,gameObject) => {
@@ -271,9 +276,8 @@ export class Puzzle extends Phaser.Scene
               gameObject.x = (dropZone.x);
               gameObject.y = dropZone.y;
               this.cardThere = true;
-              this.cardDropped = true;
               dropZone.isCardThere = true;
-              this.canMove = true;
+              gameObject.setData('placed', true);
               //check if the placed card is the right type and if the card type is correct
               if(gameObject.getData('cardtype') == this.solution.sun){
                 this.correctCards.sun = true;
