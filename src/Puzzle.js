@@ -109,8 +109,8 @@ export class Puzzle extends Phaser.Scene
                 modifyerType: modifyerType[index],
                 modifyerCardType: modifyerCardType[index],
                 placed: false,
-                scaleX: 0.85,
-                scaleY: 0.85
+                scaleX: 1,
+                scaleY: 1
             });
             this.add.tween({
                 targets: newModifyerCard.gameObject,
