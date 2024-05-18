@@ -17,6 +17,12 @@ export class Play extends Phaser.Scene
     plantNames = ["card-0", "card-1", "card-2", "card-3", "card-4", "card-5", "card-6"];
     // first letter for sun, then dirt, then watering, then fertilizer
     plantSolutions = ["fmar", "fsrb","fsat","psrm","psrf","fsmc","ssrm"];
+    //the single letter for the final clues
+    clueLetter = ["p","e","t","u","n","i","a",];
+    //position in final clues
+    cluePosition = [0,1,2,3,4,5,6];
+    //final clue
+    finalClue = ["","","","","","","",];
     // Cards Game Objects
     cards = [];
     // History of card opened
@@ -42,6 +48,8 @@ export class Play extends Phaser.Scene
     }
     //number of plant Solved
     plantsCorrect = 0;
+    //number of cluesKnown
+    cluesKnown = 7;
 
     constructor ()
     {
@@ -113,23 +121,34 @@ export class Play extends Phaser.Scene
     plantSolv(plantSolved){
       //function for when plant is solved
       if(plantSolved){
-        //change the plat to being solved then rest the selected card and plant var
+        //change the plant to being solved then reset the selected card and plant var
         this.cardSelected.gameObject.setData('solved', true);
-        this.plantsCorrect += 1;
+        this.plantsCorrect += this.cardSelected.gameObject.getData('position');
+        this.clue(this.cardSelected.gameObject.getData('clue'),this.cardSelected.gameObject.getData('position'));
         this.cardSelected = undefined;
         this.plantSelected = undefined;
-        if(this.plantsCorrect == 7){
+        if(this.plantsCorrect == 21){
           console.log('full puzzle solved');
         }
         console.log(this.plantsCorrect);
       }
       console.log('solved');
     }
+    clue(letter,position){
+      let clueLetter = this.add.text(140, 20, "", { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }).setOrigin(.5).setDepth(3);
+      for(let i = 0; i < 7; i++){
+        if(i == position){
+          clueLetter = this.add.text(((this.sys.game.scale.width / 2) - 30) + (30 * i), 390, letter, { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }).setOrigin(.5).setDepth(3);
+        }
+      }
+      this.finalClue[position] = clueLetter;
+      return this.finalClue;
+    }
     //propably can be deleted and gotten rid of
     restartGame ()
     {
-        this.cardOpened = undefined;
-        this.cameras.main.fadeOut(200 * this.cards.length);
+        //this.cardOpened = undefined;
+        //this.cameras.main.fadeOut(200 * this.cards.length);
         this.cards.reverse().map((card, index) => {
             this.add.tween({
                 targets: card.gameObject,
@@ -147,17 +166,19 @@ export class Play extends Phaser.Scene
             callback: () => {
                 this.cards = [];
                 this.canMove = false;
-                this.scene.restart();
-                this.sound.play("card-slide", { volume: 0.4 });
+                //this.scene.restart();
+                //this.sound.play("card-slide", { volume: 0.4 });
             }
         })
     }
 
     createGridCards ()
     {
-        // list of plat cards and there soulutions
+        // list of plant cards and there soulutions
         const gridCardNames = [...this.plantNames];
         const plantSolutions = [...this.plantSolutions];
+        const clueLetter = [...this.clueLetter];
+        const cluePosition = [...this.cluePosition];
 
         return gridCardNames.map((name, index) => {
             const newCard = createCard({
@@ -168,7 +189,9 @@ export class Play extends Phaser.Scene
                 cardName: name,
                 plantSolution: plantSolutions[index],
                 solved: false,
-                startFaceDown: true
+                startFaceDown: true,
+                clueLetter: clueLetter[index],
+                cluePosition: cluePosition[index]
             });
             this.add.tween({
                 targets: newCard.gameObject,
@@ -226,30 +249,32 @@ export class Play extends Phaser.Scene
       })
     }
     update(){
-      if(this.plantsCorrect == 7){
-        const petuniaVictory = this.add.image(400, 240, "petunia-victory");
+      if(this.plantsCorrect == 21){
+        const petuniaVictory = this.add.image(400, 240, "petunia-victory").setScale(0.5);
+        const winnerText = this.add.text(this.sys.game.scale.width / 2, 60, "Solution Found",
+            { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
+        )   .setOrigin(.5)
+            .setDepth(3);
+        this.restartGame();
       }
     }
     startGame ()
     {
-        // WinnerText and GameOverText (propably could be removed or changed)
-        const winnerText = this.add.text(this.sys.game.scale.width / 2, -1000, "YOU WIN",
-            { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
-        ).setOrigin(.5)
-            .setDepth(3)
-            .setInteractive();
-
-        const gameOverText = this.add.text(this.sys.game.scale.width / 2, -1000,
-            "GAME OVER\nClick to restart",
+       const skipButton = this.add.text(160, 350,
+            "skip to end",
             { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#ff0000" }
-        )
+       )
             .setName("gameOverText")
             .setDepth(3)
             .setOrigin(.5)
             .setInteractive();
-
         // Create a grid of cards
         this.cards = this.createGridCards();
+
+        const escapeRoomClue = this.add.text((this.sys.game.scale.width / 2) - 120, 390, "Clue:",
+              { align: "center", strokeThickness: 4, fontSize: 40, fontStyle: "bold", color: "#8c7ae6" }
+            )   .setOrigin(.5)
+                .setDepth(3);
 
         // Start canMove
         this.time.addEvent({
@@ -301,46 +326,20 @@ export class Play extends Phaser.Scene
               }
             }
           });
-        // currently not doing anything but can be used
-        winnerText.on(Phaser.Input.Events.POINTER_OVER, () => {
-            winnerText.setColor("#FF7F50");
-            this.input.setDefaultCursor("pointer");
-        });
-        winnerText.on(Phaser.Input.Events.POINTER_OUT, () => {
-            winnerText.setColor("#8c7ae6");
-            this.input.setDefaultCursor("default");
-        });
-        winnerText.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.sound.play("whoosh", { volume: 1.3 });
+          //got tired of having to solve all the puzzle so just made a skip button
+        skipButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+          if(this.canMove){
             this.add.tween({
-                targets: winnerText,
+                targets: skipButton,
                 ease: Phaser.Math.Easing.Bounce.InOut,
                 y: -1000,
                 onComplete: () => {
-                    this.restartGame();
+                  this.plantsCorrect = 21;
+                  this.canMove = false;
+
                 }
             })
-        });
-
-        gameOverText.on(Phaser.Input.Events.POINTER_OVER, () => {
-            gameOverText.setColor("#FF7F50");
-            this.input.setDefaultCursor("pointer");
-        });
-
-        gameOverText.on(Phaser.Input.Events.POINTER_OUT, () => {
-            gameOverText.setColor("#8c7ae6");
-            this.input.setDefaultCursor("default");
-        });
-
-        gameOverText.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.add.tween({
-                targets: gameOverText,
-                ease: Phaser.Math.Easing.Bounce.InOut,
-                y: -1000,
-                onComplete: () => {
-                    this.restartGame();
-                }
-            })
+          }
         });
     }
 

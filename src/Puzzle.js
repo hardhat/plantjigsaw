@@ -127,9 +127,9 @@ export class Puzzle extends Phaser.Scene
       return dropZones.map((name, index, isCardThere) => {
         let dropZone = this.add.zone((this.zoneConfiguration.x + (98 + this.zoneConfiguration.paddingX)*(index % 4)),(this.zoneConfiguration.y + (98 + this.zoneConfiguration.paddingY)),99,128).setRectangleDropZone(99,128);
         dropZone.setData({modifyerCards: 0});
-        let dropZoneOutline = this.add.graphics();
+        /*let dropZoneOutline = this.add.graphics();
         dropZoneOutline.lineStyle(4, 0xff69b4);
-        dropZoneOutline.strokeRect(dropZone.x - dropZone.input.hitArea.width/2, dropZone.y - dropZone.input.hitArea.height / 2, dropZone.input.hitArea.width, dropZone.input.hitArea.height);
+        dropZoneOutline.strokeRect(dropZone.x - dropZone.input.hitArea.width/2, dropZone.y - dropZone.input.hitArea.height / 2, dropZone.input.hitArea.width, dropZone.input.hitArea.height);*/
         this.add.text(dropZone.x , dropZone.y , name,{ align: "center", strokeThickness: 2, fontSize: 10, fontStyle: "bold", color: "#8c7ae6" }).setOrigin(.5);
         dropZone.name = name;
         dropZone.isCardThere = false;
@@ -241,9 +241,10 @@ export class Puzzle extends Phaser.Scene
         }
       });*/
       this.input.on('drag', (pointer,gameObject, dragX, dragY) => {
+        if(this.canMove){
           gameObject.x = dragX;
           gameObject.y = dragY;
-
+        }
       });
       this.input.on('dragstart', (pointer,gameObject) => {
           if(this.canMove){
@@ -273,7 +274,7 @@ export class Puzzle extends Phaser.Scene
           if(dropZone.isCardThere == false && this.cardPlaced < 4){
             //check if the card is being placed in the right zone
             if(gameObject.getData('type') == dropZone.name){
-              gameObject.x = (dropZone.x);
+              gameObject.x = dropZone.x;
               gameObject.y = dropZone.y;
               this.cardThere = true;
               dropZone.isCardThere = true;
